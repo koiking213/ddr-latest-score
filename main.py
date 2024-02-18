@@ -72,25 +72,25 @@ def parse_playdata(html_source: str):
     for song in songs_info:
         print(song)
 
-# ユーザ名とパスワードを.envファイルから読み込む
-load_dotenv()
-username = os.getenv("USERNAME")
-password = os.getenv("PASSWORD")
-lambda_url = os.getenv("LAMBDA_URL")
-user_agent_path = os.getenv("USER_AGENT_PATH")
+def get_playdata() -> str:
+    # ユーザ名とパスワードを.envファイルから読み込む
+    load_dotenv()
+    username = os.getenv("USERNAME")
+    password = os.getenv("PASSWORD")
+    lambda_url = os.getenv("LAMBDA_URL")
+    user_agent_path = os.getenv("USER_AGENT_PATH")
 
-# WebDriverのパスを指定
-driver_path = '/usr/local/bin/chromedriver'
-options = Options()
-options.add_argument(f"--user-data-dir={user_agent_path}")
-service = Service(executable_path=driver_path)
-driver = webdriver.Chrome(service=service, options=options)
+    # WebDriverのパスを指定
+    driver_path = '/usr/local/bin/chromedriver'
+    options = Options()
+    options.add_argument(f"--user-data-dir={user_agent_path}")
+    service = Service(executable_path=driver_path)
+    driver = webdriver.Chrome(service=service, options=options)
 
-# ログインページを開く
-driver.get("https://p.eagate.573.jp/game/ddr/ddra3/p/playdata/music_recent.html")
+    # ログインページを開く
+    driver.get("https://p.eagate.573.jp/game/ddr/ddra3/p/playdata/music_recent.html")
 
-# ログインフォームを見つけて操作
-try:
+    # ログインフォームを見つけて操作
     time.sleep(3)
     login_elements = driver.find_elements(By.ID, "login")
     if len(login_elements) > 0:
@@ -192,16 +192,11 @@ try:
         except Exception as e:
             print(f"最新のプレイデータページへの遷移に失敗しました: {e}")
             exit()
-    
-    # プレイデータを取得して解析
-    table = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.ID, "data_tbl"))
-    )
-    # debug
-    print(table)
-    parse_playdata(driver.page_source)
 
-finally:
-    # 完了したら、ブラウザを閉じる
+    source = driver.page_source
     driver.quit()
+    return source
 
+if __name__ == '__main__':
+    source = get_playdata()
+    parse_playdata(source)

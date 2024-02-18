@@ -7,6 +7,7 @@ import os
 from login import login
 import time
 from parse import parse_playdata
+import notion
 
 
 def get_playdata(username: str, password: str, lambda_url: str, user_agent_path: str) -> str:
@@ -43,6 +44,8 @@ if __name__ == '__main__':
     password = os.getenv("PASSWORD")
     lambda_url = os.getenv("LAMBDA_URL")
     user_agent_path = os.getenv("USER_AGENT_PATH")
+    notion_token = os.getenv("NOTION_TOKEN")
+    notion_db_id = os.getenv("NOTION_DB_ID")
 
     source = get_playdata(username, password, lambda_url, user_agent_path)
     scores = parse_playdata(source)
@@ -50,3 +53,5 @@ if __name__ == '__main__':
     # debug
     for score in scores:
         print(score)
+
+    notion.push_scores(scores, notion_token, notion_db_id)

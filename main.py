@@ -11,14 +11,13 @@ import notion
 
 
 def get_playdata(username: str, password: str, lambda_url: str, user_agent_path: str) -> str:
-    # WebDriverのパスを指定
     driver_path = '/usr/local/bin/chromedriver'
     options = Options()
     options.add_argument(f"--user-data-dir={user_agent_path}")
     service = Service(executable_path=driver_path)
     driver = webdriver.Chrome(service=service, options=options)
 
-    # スコアページを開く
+    # 最新のプレイデータページを開く
     driver.get("https://p.eagate.573.jp/game/ddr/ddra3/p/playdata/music_recent.html")
     time.sleep(3)
 

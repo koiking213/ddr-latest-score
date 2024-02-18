@@ -9,13 +9,13 @@
 
 ```json
 {
-    "target": <base64化された画像>,
+    "target": "base64化された画像",
     "images": [
-        <base64化された画像>,
-        <base64化された画像>,
-        <base64化された画像>,
-        <base64化された画像>,
-        <base64化された画像>,
+        "base64化された画像",
+        "base64化された画像",
+        "base64化された画像",
+        "base64化された画像",
+        "base64化された画像",
     ]
 }
 ```
@@ -31,6 +31,10 @@
 日付: 日付
 CLEARED: チェックボックス
 ```
+
+ヘッダは以下のような見た目になる。
+![image](https://github.com/koiking213/ddr-latest-score/assets/26344857/58f22d80-bd4f-45a5-adea-cfeeaa6bdb32)
+
 
 ## 使い方
 

@@ -45,4 +45,8 @@ if __name__ == '__main__':
     user_agent_path = os.getenv("USER_AGENT_PATH")
 
     source = get_playdata(username, password, lambda_url, user_agent_path)
-    parse_playdata(source)
+    scores = parse_playdata(source)
+
+    # debug
+    for score in scores:
+        print(score)

@@ -1,5 +1,6 @@
 import re
 from bs4 import BeautifulSoup
+from typing import List
 
 class ScoreInfo:
     def __init__(self, title, difficulty, rank, score, date_played):
@@ -32,7 +33,7 @@ def num_to_difficulty(num: int) -> str:
     elif num == 8:
         return "CDP"
     
-def parse_playdata(html_source: str):
+def parse_playdata(html_source: str) -> List[ScoreInfo]:
     pattern = r"_s_([a-zA-Z0-9_]+)\.png"
 
     soup = BeautifulSoup(html_source, 'html.parser')
@@ -57,6 +58,4 @@ def parse_playdata(html_source: str):
 
         song_info = ScoreInfo(title, difficulty, rank, score, date_played)
         songs_info.append(song_info)
-
-    for song in songs_info:
-        print(song)
+    return songs_info

@@ -1,6 +1,8 @@
 import base64
 import requests
 from typing import List
+from dotenv import load_dotenv
+import os
 
 def recog(target_img_base64: str, imgs_base64: List[str], url: str) -> List[int]:
     # リクエストのbodyを作成
@@ -14,6 +16,8 @@ def recog(target_img_base64: str, imgs_base64: List[str], url: str) -> List[int]
     return res.json()
 
 if __name__ == '__main__':
+    load_dotenv()
+    lambda_url = os.getenv("LAMBDA_URL")
     # カレントディレクトリのkonami_testから画像を読み込んでbase64にエンコードする
     with open('konami_test/picture.png', 'rb') as f:
         img = f.read()
@@ -24,5 +28,5 @@ if __name__ == '__main__':
         with open(f'konami_test/picture_{i}.png', 'rb') as f:
             img = f.read()
             imgs_base64.append(base64.b64encode(img).decode('utf-8'))
-    res = recog(target_img_base64, imgs_base64)
+    res = recog(target_img_base64, imgs_base64, lambda_url)
     print(res)

@@ -5,7 +5,7 @@
 ### 自動画像選択
 
 自動ログインのため、キャラクターを選択する部分を突破する必要がある。
-以下のjsonをリクエストすると、imagesのうちtargetと同じキャラクターである画像のインデックス(0~4)を返すAPIを想定している。([実装例](https://github.com/koiking213/konami-character-recognizer))
+以下のjsonをリクエストすると、imagesのうちtargetと同じキャラクターである画像のインデックス(0~4)の配列を返すAPIを想定している。([実装例](https://github.com/koiking213/konami-character-recognizer))
 
 ```json
 {

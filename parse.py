@@ -33,11 +33,10 @@ def num_to_difficulty(num: int) -> str:
     elif num == 8:
         return "CDP"
     
-def parse_playdata(html_source: str) -> List[ScoreInfo]:
+def parse_playdata(table_html: str) -> List[ScoreInfo]:
     pattern = r"_s_([a-zA-Z0-9_]+)\.png"
 
-    soup = BeautifulSoup(html_source, 'html.parser')
-    table = soup.find('table', {'id': 'data_tbl'})
+    table= BeautifulSoup(table_html, 'html.parser')
     songs_info = []
 
     for row in table.find_all('tr')[1:]:  # [1:] ヘッダを除外

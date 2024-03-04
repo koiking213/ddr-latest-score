@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 import os
 from login import login
@@ -33,7 +35,17 @@ def get_playdata(username: str, password: str, lambda_url: str, user_agent_path:
             print(f"最新のプレイデータページへの遷移に失敗しました: {e}")
             exit()
 
-    source = driver.page_source
+    # 最新50件のテーブルを読み込み
+    try:
+        table_element = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "data_tbl"))
+        )
+    except Exception as e:
+        print(f"プレイデータの取得に失敗しました: {e}")
+        exit()
+
+
+    source = table_element.get_attribute('outerHTML')
     driver.quit()
     return source
 
@@ -46,8 +58,8 @@ if __name__ == '__main__':
     notion_token = os.getenv("NOTION_TOKEN")
     notion_db_id = os.getenv("NOTION_DB_ID")
 
-    source = get_playdata(username, password, lambda_url, user_agent_path)
-    scores = parse_playdata(source)
+    table = get_playdata(username, password, lambda_url, user_agent_path)
+    scores = parse_playdata(table)
 
     # debug
     for score in scores:

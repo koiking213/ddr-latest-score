@@ -16,6 +16,7 @@ def get_playdata(username: str, password: str, lambda_url: str, user_agent_path:
     driver_path = '/usr/local/bin/chromedriver'
     options = Options()
     options.add_argument(f"--user-data-dir={user_agent_path}")
+    options.add_argument(f"--profile-directory={profile_dir}")
     service = Service(executable_path=driver_path)
     driver = webdriver.Chrome(service=service, options=options)
 
@@ -55,6 +56,7 @@ if __name__ == '__main__':
     password = os.getenv("PASSWORD")
     lambda_url = os.getenv("LAMBDA_URL")
     user_agent_path = os.getenv("USER_AGENT_PATH")
+    profile_dir = os.getenv("PROFILE_DIR")
     notion_token = os.getenv("NOTION_TOKEN")
     notion_db_id = os.getenv("NOTION_DB_ID")
 

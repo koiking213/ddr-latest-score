@@ -21,7 +21,7 @@ def get_playdata(username: str, password: str, lambda_url: str, user_agent_path:
     driver = webdriver.Chrome(service=service, options=options)
 
     # 最新のプレイデータページを開く
-    driver.get("https://p.eagate.573.jp/game/ddr/ddra3/p/playdata/music_recent.html")
+    driver.get("https://p.eagate.573.jp/game/ddr/ddrworld/playdata/music_recent.html")
     time.sleep(3)
 
     # ログインボタンを探す
@@ -31,7 +31,7 @@ def get_playdata(username: str, password: str, lambda_url: str, user_agent_path:
 
         # 最新のプレイデータページに移動
         try:
-            driver.get("https://p.eagate.573.jp/game/ddr/ddra3/p/playdata/music_recent.html")
+            driver.get("https://p.eagate.573.jp/game/ddr/ddrworld/playdata/music_recent.html")
         except Exception as e:
             print(f"最新のプレイデータページへの遷移に失敗しました: {e}")
             exit()

@@ -27,7 +27,7 @@ def push_scores(score_info: List[ScoreInfo], token: str, db_id: str):
                     "parent": {"database_id": db_id},
                     "properties": {
                         "曲名": {"title": [{"text": {"content": score.title}}]},
-                        "難易度": {"select": {"name": score.difficulty}},
+                        "難易度": {"select": {"name": score.chart_kind}},
                         "スコア": {"number": int(score.score)},
                         "日付": {
                             "date": {
